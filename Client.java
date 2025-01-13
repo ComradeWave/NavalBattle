@@ -2,7 +2,7 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-public class Client {
+public class Client extends ValidateIPv4{
     private static final int BOARD_SIZE = 5;
     private static final char WATER = '~';
     private static final char HIT = 'X';
@@ -86,39 +86,43 @@ public class Client {
     private boolean processShot(int row, int col, String result) {
         String[] parts = result.split(":");
         String shotResult = parts[0];
-        Integer shipSize = parts.length > 1 ? Integer.parseInt(parts[1]) : null;
+        Integer shipSize = parts.length > 1 ? Integer.valueOf(parts[1]) : null;
 
         switch (shotResult) {
-            case "HIT":
+            case "HIT" -> {
                 System.out.println("Hit!");
                 board[row][col] = HIT;
-                break;
-            case "SUNK":
+            }
+            case "SUNK" -> {
                 System.out.println("You sunk a ship of size " + shipSize + "!");
                 board[row][col] = HIT;
                 remainingShips.merge(shipSize, -1, Integer::sum);
                 if (remainingShips.get(shipSize) <= 0) {
                     remainingShips.remove(shipSize);
                 }
-                break;
-            case "MISS":
+            }
+            case "MISS" -> {
                 System.out.println("Miss!");
                 board[row][col] = MISS;
-                break;
-            case "ALREADY_SHOT":
+            }
+            case "ALREADY_SHOT" -> {
                 System.out.println("You already shot at this position!");
                 return false;
-            case "GAME_OVER":
+            }
+            case "GAME_OVER" -> {
                 System.out.println("Congratulations! You've sunk all the ships!");
                 board[row][col] = HIT;
                 displayBoard();
                 return true;
-            case "INVALID":
+            }
+            case "INVALID" -> {
                 System.out.println("Invalid coordinates!");
                 return false;
-            default:
+            }
+            default -> {
                 System.out.println("Unknown response from server: " + result);
                 return false;
+            }
         }
         return false;
     }
@@ -160,9 +164,13 @@ public class Client {
             }
         }
     }
-
     public static void main(String[] args) {
-        String address = "localhost";
+        Scanner ipReader = new Scanner(System.in);
+        String address="placeholder";
+        if(!isValidIPv4(address)){
+            System.out.println("Insert new IP: ");
+            address = ipReader.nextLine();
+        }
         int port = 5000;
         Client gameClient = new Client();
 
