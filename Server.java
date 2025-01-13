@@ -192,6 +192,7 @@ public class Server {
         }
     }
 
+    @SuppressWarnings("CallToPrintStackTrace")
     public static void main(String[] args) {
         try (ServerSocket serverSocket = new ServerSocket(5000)) {
             System.out.println("Naval Battle Server is running on port 5000...");
@@ -233,7 +234,7 @@ public class Server {
             List<Integer> shipSizes = new ArrayList<>();
             String[] sizes = shipConfig.substring(6).split(",");
             for (String size : sizes) {
-                shipSizes.add(Integer.parseInt(size.trim()));
+                shipSizes.add(Integer.valueOf(size.trim()));
             }
             return shipSizes;
         }
@@ -255,7 +256,7 @@ public class Server {
                 if (result.result.equals("GAME_OVER")) {
                     break;
                 }
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 out.println("INVALID");
                 System.out.println("Invalid input received: " + input);
             }
