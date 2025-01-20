@@ -22,24 +22,24 @@ The project consists of the following Java files:
 1. **Compile the Java files:**
     Open a terminal or command prompt, navigate to the project's directory, and compile the Java files:
 
-   ```bash
-   javac battaglia\ navale\*.java
-   ```
+  ```bash
+    javac battaglia\ navale\*.java
+  ```
 
 2.  **Run the Server:**
     In a new terminal window, execute the `Server.java` file:
 
-    ```bash
-   java battaglia\ navale\Server
-    ```
+  ```bash
+    java battaglia\ navale\Server
+  ```
     The server will start and listen for client connections.
 
 3.  **Run the Client:**
     In another terminal window, execute the `Client.java` file:
 
-    ```bash
-   java battaglia\ navale\Client
-   ```
+  ```bash
+    java battaglia\ navale\Client
+  ```
 
     The client will prompt you to enter the server's IP address if it is an invalid ip address.
     After that, it'll prompt for the number of ships and their respective sizes.
